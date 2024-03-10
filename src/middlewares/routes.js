@@ -26,7 +26,7 @@ export const routes = [
         id: randomUUID(),
         name: name,
         email: email,
-        pass: password,
+        password: password,
       };
 
       database.insert("users", user);
