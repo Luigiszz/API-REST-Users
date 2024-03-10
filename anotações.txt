@@ -1,0 +1,88 @@
+__________________________
+
+HTTP
+
+Como criar um servidor HTTP por meio do código?
+
+Apenas imporar o http e escrever const server = http.createServer((req, res) => {}).
+
+Como definir qual porta o servidor HTTP irá "ouvir"?
+
+Utilizando server.listen(porta)
+
+
+Métodos HTTP:
+
+GET - Requerir algo do servidor
+POST - Inserir algo ao servidor
+PUT - Editar um registro inteiro no servidor
+PATCH - Editar uma parte específica de um registro no servidor
+DELETE - Deletar algo do servidor
+
+
+Header:
+
+É possível definir metadados para a response com o .setHeader.
+
+URL:
+
+URL é o caminho em que a request foi feita.
+
+Head:
+
+É possível retornar um erro ou que foi um sucesso por meio de código (entre 0 a 600) por meio do res.writeHead(código)
+
+Como ver o método e URL da requisição?
+
+Apenas definir com const { method, url } = req.
+
+__________________________
+
+Streams
+
+O que é um stream?
+
+Ela server para agilizar o processo de transferência de dados. As transferências normais esperam os dados serem lidos totalmente para dar upload e vice e versa, a stream lê os dados enquanto eles ainda estão sendo transferidos, assim agilizando o processo.
+
+Como criar uma stream?
+
+Há três tipos de Stream (Readable, Writable e Transform), vamos ver cada uma delas:
+
+- Readable
+
+A stream Readable ela apenas é legível, não há como passar uma chunk para ela, apenas ler.
+Para criar uma é só criar uma classe extendendo o Reading importado do node:streams e utilizar o método _read(){} para começar.
+
+class Example extends Readable{
+    _read(){código}
+}
+
+- Writable
+
+Não é possível ler uma stream Writable, apenas inserir alguns parâmetros que veremos a frente. Para criar uma stream Writable precisamos fazer uma classe que extenda o Writable, e definir o método principal _write(), que irá receber 3 parâmetros, o chunk, encoding e callback.
+
+class Example extends Transform{
+    _write(chunk, encoding, callback){
+        código
+        callback()
+        }
+}
+
+- Transform
+
+A transform é o meio termo entre as duas, é possíve ler uma transform, e inserir chunks, ela possuí os mesmo parâmetros da Writable (chunk, encoding e callback).
+
+class Example extends Transform {
+    código
+    callback(null, result)
+}
+
+.pipe()
+
+É possível encaminhar streams para variáveis, etc utilizando o método .pipe() (apenas para streams legíveis).
+
+__________________________
+
+Como fazer uma request para um servidor com node.js?
+
+Utilizando o método fetch, é necessário definir a URL do servidor, e 3 parâmetros (method, body, duplex)
